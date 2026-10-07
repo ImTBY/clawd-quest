@@ -277,6 +277,8 @@ The level stops at 100, but XP keeps counting: every **1,000 XP** past level 100
 
   No other file contents are sent. The model is told to treat all of it as data, never as instructions.
 - **Measured quests read files locally.** To track a quest, Clawd reads the files it measures (never secret or binary files, never a file over 256 KB). That never leaves your machine.
+- **Secrets are off-limits.** Clawd never opens `.env` files, keys and certificates (`.pem`, `.key`, `.pfx`, `.p12`, `id_*`), `.ssh/` and `.aws/` folders, `kubeconfig`, `.npmrc`, `.pypirc`, `.netrc`, `.git-credentials`, Docker configs, `credentials*.json`, `service-account*.json`, `secrets.*`, `*.tfvars` or `*.tfstate`. Their names are left out of what `/quests` sends, too, and quests that touch secrets, keys or production are refused.
+- **No environment variables.** Claude Code runs the plugin in a sandbox without Node or process access, so Clawd cannot read your environment variables or anything outside what Claude Code hands it.
 - **Clawd never runs commands.** No command, script or tool is ever run by Clawd, and nothing in a model reply can make it run one. It reads only the project's file names, the README and the files a quest measures, and writes only to its own plugin store.
 
 ### Saves
