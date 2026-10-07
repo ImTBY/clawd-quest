@@ -2,7 +2,7 @@
 
 ## 1.0.0
 
-The first public release of **Clawd Quest** (plugin `pet-mascot`, marketplace `clawd-quest`): a pixel pet for Claude
+The first public release of **Clawd Quest** (plugin and marketplace `clawd-quest`): a pixel pet for Claude
 Code that lives in a side pane, reacts to everything Claude Code does and turns your coding sessions into a small game.
 Needs Claude Code 2.1.288 or newer, in the terminal or the desktop Code tab.
 
@@ -57,13 +57,13 @@ Needs Claude Code 2.1.288 or newer, in the terminal or the desktop Code tab.
   the tab a dot) until you have seen them. Decor shows a preview of every piece.
 - The header names the project and shows the level, xp, streak and the next unlock.
 - Trophies: newest first, the next three up with their progress, and project trophies from `/quests`.
-- The terminal draws Clawd in block characters with a compact stats view. `/pet` opens or closes the pane.
+- The terminal draws Clawd in block characters with a compact stats view. `/clawd` opens or closes the pane.
 
 ### Saves
 
 - **Saves are version 2.** A build never overwrites a save written by a newer version: it leaves it alone (read-only),
   with a banner in the pane.
 - **A `--plugin-dir` install and a marketplace install keep separate saves.** The plugin's store file name includes where
-  it was installed from: `~/.claude/plugins/store/pet-mascot_inline-<id>.json` for `--plugin-dir`, another
-  `pet-mascot_…json` for the marketplace install. To keep your progress when you switch to the marketplace install,
+  it was installed from: `~/.claude/plugins/store/clawd-quest_inline-<id>.json` for `--plugin-dir`, another
+  `clawd-quest_…json` for the marketplace install. To keep your progress when you switch to the marketplace install,
   start the new install once (so its file exists), quit Claude Code, then copy the old file over the new one.

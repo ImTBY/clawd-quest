@@ -1,4 +1,4 @@
-// Shared contract for the pet-mascot mod. scene.ts, game.ts, quips.ts and register.tsx all build on it.
+// Shared contract for the clawd-quest mod. scene.ts, game.ts, quips.ts and register.tsx all build on it.
 
 export type Mood =
   | 'idle' | 'thinking' | 'coding' | 'reading' | 'running' | 'working' | 'done' | 'error'
@@ -249,7 +249,7 @@ export type Tab = 'room' | 'quests' | 'trophies' | 'wardrobe' | 'decor'
 
 declare module 'claude-code' {
   interface PluginState {
-    'pet-mascot': {
+    'clawd-quest': {
       pet: PetState
       isHidden: boolean
       frame: number

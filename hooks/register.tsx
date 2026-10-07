@@ -31,30 +31,30 @@ import { clawdAt, decorPreview, miniSvg, MIRROR_RATIO, phaseSvg, previewSize, SC
 
 const PET_START: PetState = { mood: 'idle', activity: 'none', detail: '', quip: 'Ready when you are.' }
 
-const pet = atom({ plugin: 'pet-mascot', key: 'pet' } as const, PET_START)
-const isHidden = atom({ plugin: 'pet-mascot', key: 'isHidden' } as const, false)
-const frame = atom({ plugin: 'pet-mascot', key: 'frame' } as const, 0)
-const stats = atom({ plugin: 'pet-mascot', key: 'stats' } as const, { tools: 0, edits: 0, reads: 0, runs: 0, errors: 0, turns: 0, xp: 0 } as SessionStats)
-const log = atom({ plugin: 'pet-mascot', key: 'log' } as const, [] as LogEntry[])
-const profileAtom = atom({ plugin: 'pet-mascot', key: 'profile' } as const, null as Profile | null)
-const tab = atom({ plugin: 'pet-mascot', key: 'tab' } as const, 'room' as Tab)
-const combo = atom({ plugin: 'pet-mascot', key: 'combo' } as const, 0)
-const helpers = atom({ plugin: 'pet-mascot', key: 'helpers' } as const, 0)
-const coffee = atom({ plugin: 'pet-mascot', key: 'coffee' } as const, 3)
-const board = atom({ plugin: 'pet-mascot', key: 'board' } as const, null as ProjectQuestBoard | null)
-const customHat = atom({ plugin: 'pet-mascot', key: 'customHat' } as const, null as CustomHat | null)
-const decor = atom({ plugin: 'pet-mascot', key: 'decor' } as const, {} as DecorChoice)
-const questGen = atom({ plugin: 'pet-mascot', key: 'questGen' } as const, { status: 'idle', message: '' } as QuestGen)
-const hatAtom = atom({ plugin: 'pet-mascot', key: 'hat' } as const, null as HatId | null)
-const recentPromptsAtom = atom({ plugin: 'pet-mascot', key: 'recentPrompts' } as const, [] as string[])
-const sceneAtom = atom({ plugin: 'pet-mascot', key: 'scene' } as const, { mood: 'idle', activity: 'none', fromX: null, at: 0 } as SceneShow)
-const expandTrophies = atom({ plugin: 'pet-mascot', key: 'expandTrophies' } as const, false)
-const usageAtom = atom({ plugin: 'pet-mascot', key: 'usage' } as const, USAGE_START)
-const celebrate = atom({ plugin: 'pet-mascot', key: 'celebrate' } as const, null as { kind: Celebration; until: number } | null)
-const expandLocked = atom({ plugin: 'pet-mascot', key: 'expandLocked' } as const, [] as string[])
-const swapArmed = atom({ plugin: 'pet-mascot', key: 'swapArmed' } as const, '')
+const pet = atom({ plugin: 'clawd-quest', key: 'pet' } as const, PET_START)
+const isHidden = atom({ plugin: 'clawd-quest', key: 'isHidden' } as const, false)
+const frame = atom({ plugin: 'clawd-quest', key: 'frame' } as const, 0)
+const stats = atom({ plugin: 'clawd-quest', key: 'stats' } as const, { tools: 0, edits: 0, reads: 0, runs: 0, errors: 0, turns: 0, xp: 0 } as SessionStats)
+const log = atom({ plugin: 'clawd-quest', key: 'log' } as const, [] as LogEntry[])
+const profileAtom = atom({ plugin: 'clawd-quest', key: 'profile' } as const, null as Profile | null)
+const tab = atom({ plugin: 'clawd-quest', key: 'tab' } as const, 'room' as Tab)
+const combo = atom({ plugin: 'clawd-quest', key: 'combo' } as const, 0)
+const helpers = atom({ plugin: 'clawd-quest', key: 'helpers' } as const, 0)
+const coffee = atom({ plugin: 'clawd-quest', key: 'coffee' } as const, 3)
+const board = atom({ plugin: 'clawd-quest', key: 'board' } as const, null as ProjectQuestBoard | null)
+const customHat = atom({ plugin: 'clawd-quest', key: 'customHat' } as const, null as CustomHat | null)
+const decor = atom({ plugin: 'clawd-quest', key: 'decor' } as const, {} as DecorChoice)
+const questGen = atom({ plugin: 'clawd-quest', key: 'questGen' } as const, { status: 'idle', message: '' } as QuestGen)
+const hatAtom = atom({ plugin: 'clawd-quest', key: 'hat' } as const, null as HatId | null)
+const recentPromptsAtom = atom({ plugin: 'clawd-quest', key: 'recentPrompts' } as const, [] as string[])
+const sceneAtom = atom({ plugin: 'clawd-quest', key: 'scene' } as const, { mood: 'idle', activity: 'none', fromX: null, at: 0 } as SceneShow)
+const expandTrophies = atom({ plugin: 'clawd-quest', key: 'expandTrophies' } as const, false)
+const usageAtom = atom({ plugin: 'clawd-quest', key: 'usage' } as const, USAGE_START)
+const celebrate = atom({ plugin: 'clawd-quest', key: 'celebrate' } as const, null as { kind: Celebration; until: number } | null)
+const expandLocked = atom({ plugin: 'clawd-quest', key: 'expandLocked' } as const, [] as string[])
+const swapArmed = atom({ plugin: 'clawd-quest', key: 'swapArmed' } as const, '')
 
-const PANE = 'pet-mascot'
+const PANE = 'clawd-quest'
 // LEGACY global keys from before progress was per project: read once for adoption, never written or deleted.
 const STORE_KEY = 'profile'
 const HAT_KEY = 'customHat'
@@ -1436,7 +1436,7 @@ async function generateQuests($: EngineInterface, focus: string): Promise<void> 
     if (myGen !== genToken) return
     const kind: GenFailure = err instanceof GenError ? err.kind : 'unreadable'
     try {
-      $.ui.log(`pet-mascot /quests: ${err instanceof Error ? err.message : String(err)}`, { to: 'debug' })
+      $.ui.log(`clawd-quest /quests: ${err instanceof Error ? err.message : String(err)}`, { to: 'debug' })
     } catch {
       // no log on this surface
     }
@@ -1583,7 +1583,7 @@ async function setPaneHidden($: EngineInterface, hidden: boolean): Promise<void>
 export const register: Register = on => {
   on('session.start', async ($, e, next) => {
     try {
-      await $.command.register({ name: 'pet', description: 'Open or close the Clawd mascot pane', immediate: true })
+      await $.command.register({ name: 'clawd', description: 'Open or close the Clawd mascot pane', immediate: true })
     } catch {
       // registered by an earlier start
     }
@@ -1658,7 +1658,7 @@ export const register: Register = on => {
     return next(e)
   })
 
-  on('command.run', { command: 'pet' }, async $ => {
+  on('command.run', { command: 'clawd' }, async $ => {
     try {
       await ensureSession($).catch(() => undefined)
       const pane = (await $.ui.panes().catch(() => [])).find(item => item.id === PANE)
@@ -2151,7 +2151,7 @@ export const register: Register = on => {
             <Text dimColor wrap="truncate-end">
               <Text color={ORANGE}>/quests</Text>
               {' project quests · '}
-              <Text color={ORANGE}>/pet</Text>
+              <Text color={ORANGE}>/clawd</Text>
               {' hide'}
               {claimable ? ' · ctrl+x tab, then c to claim' : ''}
             </Text>
@@ -2680,7 +2680,7 @@ export const register: Register = on => {
     } catch (err) {
       // a broken drawing must not take the pane away: a plain line instead
       try {
-        $.ui.log(`pet-mascot pane: ${err instanceof Error ? err.message : String(err)}`, { to: 'debug' })
+        $.ui.log(`clawd-quest pane: ${err instanceof Error ? err.message : String(err)}`, { to: 'debug' })
       } catch {
         // no log here
       }

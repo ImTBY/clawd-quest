@@ -497,7 +497,7 @@ test('board keys tell folders apart', async () => {
   expect(storeKey('api')).toBe('quests:api')
 })
 
-const PANE = { plugin: 'pet-mascot', component: 'Pane', requestId: 'pet-mascot', surface: 'desktop', props: { title: 'Clawd', isFocused: false, bodyColumns: 60, placement: 'dock' } as never } as const
+const PANE = { plugin: 'clawd-quest', component: 'Pane', requestId: 'clawd-quest', surface: 'desktop', props: { title: 'Clawd', isFocused: false, bodyColumns: 60, placement: 'dock' } as never } as const
 
 test('the quests button asks Claude and fills quests, trophies and hats', async ($, on) => {
   mock.clock(on, { now: Date.UTC(2026, 9, 6, 12) })

@@ -14,8 +14,8 @@ import { stationOf } from './scene'
 import type { Profile } from '../types'
 
 const MOODS = ['idle', 'thinking', 'coding', 'reading', 'running', 'working', 'done', 'error', 'sleeping', 'happy'] as const
-const PANE = { plugin: 'pet-mascot', component: 'Pane', requestId: 'pet-mascot', props: { title: 'Clawd', isFocused: false, bodyColumns: 60, placement: 'dock' } } as const
-const SPINNER = { plugin: 'pet-mascot', component: 'Spinner', requestId: 'main', props: { word: 'Zzorbling', message: null, suffix: '', mode: 'thinking' } } as const
+const PANE = { plugin: 'clawd-quest', component: 'Pane', requestId: 'clawd-quest', props: { title: 'Clawd', isFocused: false, bodyColumns: 60, placement: 'dock' } } as const
+const SPINNER = { plugin: 'clawd-quest', component: 'Spinner', requestId: 'main', props: { word: 'Zzorbling', message: null, suffix: '', mode: 'thinking' } } as const
 const REF = { helpers: 'helpers', pet: 'pet', stats: 'stats', board: 'board', profile: 'profile', questGen: 'questGen', scene: 'scene' } as const
 // A Monday morning, so no weekend or night achievements get in the way.
 const START = new Date(2026, 9, 5, 10, 0, 0).getTime()
@@ -38,18 +38,18 @@ const PROBE: Plugin = {
     on('command.run', { command: 'probe' }, async ($, e) => {
       let got: { value?: unknown }
       switch (e.args) {
-        case 'pet': got = await $.state.get({ plugin: 'pet-mascot', key: 'pet' }); break
-        case 'stats': got = await $.state.get({ plugin: 'pet-mascot', key: 'stats' }); break
-        case 'board': got = await $.state.get({ plugin: 'pet-mascot', key: 'board' }); break
-        case 'profile': got = await $.state.get({ plugin: 'pet-mascot', key: 'profile' }); break
-        case 'scene': got = await $.state.get({ plugin: 'pet-mascot', key: 'scene' }); break
-        case 'helpers': got = await $.state.get({ plugin: 'pet-mascot', key: 'helpers' }); break
-        case 'usage': got = await $.state.get({ plugin: 'pet-mascot', key: 'usage' }); break
-        case 'celebrate': got = await $.state.get({ plugin: 'pet-mascot', key: 'celebrate' }); break
-        case 'customHat': got = await $.state.get({ plugin: 'pet-mascot', key: 'customHat' }); break
-        case 'isHidden': got = await $.state.get({ plugin: 'pet-mascot', key: 'isHidden' }); break
-        case 'combo': got = await $.state.get({ plugin: 'pet-mascot', key: 'combo' }); break
-        default: got = await $.state.get({ plugin: 'pet-mascot', key: 'questGen' })
+        case 'pet': got = await $.state.get({ plugin: 'clawd-quest', key: 'pet' }); break
+        case 'stats': got = await $.state.get({ plugin: 'clawd-quest', key: 'stats' }); break
+        case 'board': got = await $.state.get({ plugin: 'clawd-quest', key: 'board' }); break
+        case 'profile': got = await $.state.get({ plugin: 'clawd-quest', key: 'profile' }); break
+        case 'scene': got = await $.state.get({ plugin: 'clawd-quest', key: 'scene' }); break
+        case 'helpers': got = await $.state.get({ plugin: 'clawd-quest', key: 'helpers' }); break
+        case 'usage': got = await $.state.get({ plugin: 'clawd-quest', key: 'usage' }); break
+        case 'celebrate': got = await $.state.get({ plugin: 'clawd-quest', key: 'celebrate' }); break
+        case 'customHat': got = await $.state.get({ plugin: 'clawd-quest', key: 'customHat' }); break
+        case 'isHidden': got = await $.state.get({ plugin: 'clawd-quest', key: 'isHidden' }); break
+        case 'combo': got = await $.state.get({ plugin: 'clawd-quest', key: 'combo' }); break
+        default: got = await $.state.get({ plugin: 'clawd-quest', key: 'questGen' })
       }
       return { text: JSON.stringify(got.value ?? null) }
     })
@@ -366,7 +366,7 @@ test('pane draws every tab on desktop and the room on terminal', async ($, on) =
   const terminal = await $.ui.mount({ ...PANE, surface: 'terminal', props: PANE.props as never })
   expect((await terminal.find({ text: '▐▛███▜▌' })) !== undefined || (await terminal.find({ text: '▐█████▌' })) !== undefined).toBe(true)
   expect((await terminal.find({ text: 'Daily' })) !== undefined).toBe(true)
-  expect((await terminal.find({ text: '/pet' })) !== undefined).toBe(true)
+  expect((await terminal.find({ text: '/clawd' })) !== undefined).toBe(true)
   expect((await terminal.find({ text: /^Trophies \d+\/\d+ · / })) !== undefined).toBe(true)
   await terminal.unmount()
 
@@ -1205,9 +1205,9 @@ test('the level-up toast names unlocks, the next one and a new title; milestones
 
 const run = async ($: Dollar, command: string, args = '') =>
   String(((await $.command.run({ command, args, origin: { kind: 'composer' }, presentation: PRESENTATION } as never)) as { text?: string }).text)
-const paneRow = (over: Record<string, unknown>) => ({ id: 'pet-mascot', title: 'Clawd', isShown: true, isFocused: false, isPlaced: true, ...over })
+const paneRow = (over: Record<string, unknown>) => ({ id: 'clawd-quest', title: 'Clawd', isShown: true, isFocused: false, isPlaced: true, ...over })
 
-test('/pet closes a pane on screen, brings back one that is not, and remembers', WITH_PROBE, async ($, on) => {
+test('/clawd closes a pane on screen, brings back one that is not, and remembers', WITH_PROBE, async ($, on) => {
   const mem = new Map<string, unknown>()
   let panes: unknown[] = []
   let placed = true
@@ -1215,25 +1215,25 @@ test('/pet closes a pane on screen, brings back one that is not, and remembers',
   const closes: unknown[] = []
   await boot($, on, {}, undefined, { mem, panes: () => panes, open: () => ({ isPlaced: placed }), opens, closes })
   panes = [paneRow({})]
-  expect(await run($, 'pet')).toBe('Clawd went for a walk.')
+  expect(await run($, 'clawd')).toBe('Clawd went for a walk.')
   expect(closes).toHaveLength(1)
   expect(mem.get('paneHidden')).toBe(true)
   expect(await get<boolean>($, 'isHidden')).toBe(true)
   // open, but behind another pane's tab: shown again, never closed
   panes = [paneRow({ isShown: false })]
-  expect(await run($, 'pet')).toBe('Clawd is back.')
+  expect(await run($, 'clawd')).toBe('Clawd is back.')
   expect(closes).toHaveLength(1)
-  expect(opens.at(-1)).toMatchObject({ id: 'pet-mascot', focus: true })
+  expect(opens.at(-1)).toMatchObject({ id: 'clawd-quest', focus: true })
   expect(mem.get('paneHidden')).toBe(false)
   // waiting undrawn on a narrow terminal
   panes = [paneRow({ isShown: false, isPlaced: false })]
   placed = false
-  expect(await run($, 'pet')).toBe('Widen the terminal to see Clawd.')
+  expect(await run($, 'clawd')).toBe('Widen the terminal to see Clawd.')
   expect(closes).toHaveLength(1)
 })
 
-test('a closed pane stays closed across sessions until /pet', WITH_PROBE, async ($, on) => {
-  // a person's close (ui.close, origin person) stores the same flag as /pet; the test engine cannot raise one
+test('a closed pane stays closed across sessions until /clawd', WITH_PROBE, async ($, on) => {
+  // a person's close (ui.close, origin person) stores the same flag as /clawd; the test engine cannot raise one
   const mem = new Map<string, unknown>([['paneHidden', true]])
   const opens: unknown[] = []
   const { clock } = await boot($, on, {}, undefined, { mem, opens })
@@ -1241,7 +1241,7 @@ test('a closed pane stays closed across sessions until /pet', WITH_PROBE, async 
   expect(await get<boolean>($, 'isHidden')).toBe(true)
   await restart($, clock, CWD)
   expect(opens).toHaveLength(0)
-  expect(await run($, 'pet')).toBe('Clawd is back.')
+  expect(await run($, 'clawd')).toBe('Clawd is back.')
   expect(opens).toHaveLength(1)
   expect(mem.get('paneHidden')).toBe(false)
   await restart($, clock, CWD)
