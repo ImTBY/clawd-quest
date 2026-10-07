@@ -70,4 +70,4 @@ The preview pages show every activity's station, every decor piece, hat and room
 
 ## License
 
-Contributions are accepted under the project's noncommercial license, [PolyForm Noncommercial 1.0.0](LICENSE).
+Contributions are accepted under the project's [MIT License](LICENSE).

@@ -6,7 +6,7 @@
 
 <p align="center">
   <a href="CHANGELOG.md"><img src="https://img.shields.io/badge/version-1.0.0-D97757" alt="Version 1.0.0"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-PolyForm%20Noncommercial%201.0.0-blue" alt="License: PolyForm Noncommercial 1.0.0"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="License: MIT"></a>
   <a href="https://code.claude.com/docs"><img src="https://img.shields.io/badge/Claude%20Code-2.1.288%2B-D97757" alt="Requires Claude Code 2.1.288 or newer"></a>
 </p>
 
@@ -376,8 +376,8 @@ Clawd Quest is an unofficial fan project by ImTBY. It is not affiliated with, en
 
 ## License
 
-[PolyForm Noncommercial 1.0.0](LICENSE). Copyright (c) 2026 ImTBY.
+[MIT](LICENSE). Copyright (c) 2026 ImTBY.
 
-You may use, modify and share Clawd Quest for free for any noncommercial purpose: personal use, hobby projects, study, research, and use by charities, schools and public institutions. Selling it or using it commercially needs the author's permission.
+Free to use, modify and share, at home or at work. Just keep the copyright notice.
 
 <p align="right"><a href="#top">Back to top</a></p>
