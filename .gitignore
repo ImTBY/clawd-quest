@@ -1,0 +1,8 @@
+.claude-plugin/types/
+node_modules/
+*.log
+preview/
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

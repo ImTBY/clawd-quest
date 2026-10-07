@@ -1,0 +1,16 @@
+{
+  "name": "clawd-quest",
+  "owner": { "name": "ImTBY" },
+  "description": "Clawd Quest, an unofficial fan-made Claude Code mod: a pixel pet that turns your coding sessions into a small game.",
+  "plugins": [
+    {
+      "name": "pet-mascot",
+      "source": "./",
+      "description": "Clawd Quest: an animated pixel pet in a side pane that reacts to Claude Code's work, with per-project levels to 100, streaks, daily and project quests, 80 trophies, 44 hats and 98 unlockable pieces of room decor. Unofficial fan project.",
+      "version": "1.0.0",
+      "author": { "name": "ImTBY", "url": "https://github.com/ImTBY" },
+      "homepage": "https://github.com/ImTBY/clawd-quest",
+      "category": "fun"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "name": "pet-mascot",
+  "version": "1.0.0",
+  "description": "Clawd Quest: an animated pixel pet in a side pane that reacts to Claude Code's work, with per-project levels to 100, streaks, daily and project quests, 80 trophies, 44 hats and 98 unlockable pieces of room decor. Unofficial fan project.",
+  "author": { "name": "ImTBY", "url": "https://github.com/ImTBY" },
+  "homepage": "https://github.com/ImTBY/clawd-quest",
+  "repository": "https://github.com/ImTBY/clawd-quest",
+  "license": "PolyForm-Noncommercial-1.0.0",
+  "keywords": ["game", "pet", "gamification", "fun", "mascot"],
+  "types": "./types/index.d.ts"
+}
